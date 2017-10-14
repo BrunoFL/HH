@@ -46,19 +46,31 @@ function pageMange() {
     $(search).appendTo('body');
 
     var navBot =
-        '<div class="fixed-bottom btn-group" role="group"><div class="mx-auto"><button type="button" class="btn btn-info btn-lg">Sections</button><button type="button" class="btn btn-info btn-lg">Favoris</button><button type="button" class="btn btn-info btn-lg">Panier</button><button type="button" class="btn btn-info btn-lg">Ajout</button></div></div>';
+        '<div id="navbot" class="fixed-bottom btn-group" role="group"><div class="mx-auto"><button type="button" class="btn btn-info btn-lg">Secs</button><button type="button" class="btn btn-info btn-lg">Favoris</button><button type="button" class="btn btn-info btn-lg">Panier</button><button type="button" class="btn btn-info btn-lg">Ajout</button></div></div>';
     $('body').append(navBot);
     $('#nav_dock').on('click touch', pageMain);
 
     var list =
-        '<div class="row container-fluid"><div id="list-example" class="list-group col-1">';
+        '<div id="list-aliment-container" class="row container-fluid"><div id="list-aliment" class="scrollBar list-group col-2">';
     for (var i = 0; i < 26; i++) {
+        var lettre = String.fromCharCode('A'.charCodeAt(0) + i);
         list +=
             '<a class="list-group-item list-group-item-action" href="#list-item-' +
-            ('A' + i) + '">' + i + '</a>';
+            i + '">' + lettre + '</a>';
     }
-    console.log(list);
+    list += '</div>';
+    list +=
+        '<div id="list-aliment-content" data-spy="scroll" data-target="#list-aliment" data-offset="0" class="scrollBar scrollspy-aliment col-10">';
+    for (var i = 0; i < 26; i++) {
+        var lettre = String.fromCharCode('A'.charCodeAt(0) + i);
+        list += '<h4 id="list-item-' + i + '">' + lettre + '</h4><hr>';
+        for (var j = 0; j < 5; j++) {
+            list += "<div><p>plok</p></div>";
+        }
+    }
+    list += '</div>';
     $('body').append(list);
+    $('#list-aliment-container').height(window.innerHeight - 150);
 };
 
 function pageMain() {

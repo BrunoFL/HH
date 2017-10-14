@@ -25,3 +25,18 @@
 #search_bar{
     margin-top: 55px;
 }
+#list-aliment-container{
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+#list-aliment-content{
+    position: relative;
+}
+
+#navbot{
+    background-color: ;
+}
+
+.scrollBar{
+    overflow-y: scroll;
+}
