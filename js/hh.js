@@ -26,7 +26,7 @@ function addQuadCards() {
         '"><img class="card-img-top" src="assets/memo.svg" alt="Card image cap"><div class="card-body"><h3 class="card-title text-center">Mémo</h3></div></div></div>';
 
     $('body').append('<div id="quadCards" class="cols mx-auto">' + cardMange +
-                     cardEspace + cardRecettes + cardMemo + '</div>');
+                     cardRecettes + cardEspace + cardMemo + '</div>');
     $('#card_mange').on('click touch', pageMange);
 };
 
