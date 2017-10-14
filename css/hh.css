@@ -1,0 +1,27 @@
+#quadCards {
+    width: 100%;
+    max-width: 800px;
+    margin: 5em;
+}
+
+.cols {
+    -moz-column-count: 2;
+    -moz-column-gap: 3%;
+    -moz-column-width: 45%;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 3%;
+    -webkit-column-width: 45%;
+    column-count: 2;
+    column-gap: 3%;
+    column-width: 45%;
+}
+
+.box {
+    margin-bottom: 20px;
+    background: #BFBFBF;
+    text-shadow: 0 0 10px black;
+}
+
+#search_bar{
+    margin-top: 55px;
+}
