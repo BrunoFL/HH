@@ -46,7 +46,7 @@ function pageMange() {
     $(search).appendTo('body');
 
     var navBot =
-        '<div id="navbot" class="fixed-bottom btn-group" role="group"><div class="mx-auto"><button type="button" class="btn btn-info btn-lg">Secs</button><button type="button" class="btn btn-info btn-lg">Favoris</button><button type="button" class="btn btn-info btn-lg">Panier</button><button type="button" class="btn btn-info btn-lg">Ajout</button></div></div>';
+        '<div id="navbot" class="fixed-bottom btn-group" role="group"><div class="mx-auto btn-decale"><button type="button" class="btn btn-dark btn-lg">Secs</button><button type="button" class="btn btn-dark btn-lg">Favoris</button><button type="button" class="btn btn-dark btn-lg">Panier</button><button type="button" class="btn btn-dark btn-lg">Ajout</button></div></div>';
     $('body').append(navBot);
     $('#nav_dock').on('click touch', pageMain);
 
