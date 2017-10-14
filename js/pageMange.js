@@ -13,10 +13,6 @@ function pageMange() {
     // $('body').append(navBot);
     $('#nav_dock').on('click touch', pageMain);
     $('#list-aliment-container').height(window.innerHeight - 150);
-    $('list-aliment').scrollspy({
-        target : '#list-aliment-content'
-    });  // FONCTIONNE PAS !!!
-    $('.collapse').on('show.bs.collapse', adjustAliment);
 };
 
 function create_list_header() {
@@ -66,7 +62,14 @@ function create_list_element(aliments) {
                 heading +
                 '"><h6><a class="collapsed" data-toggle="collapse" href="#' +
                 collapse + '" aria-expanded="false" aria-controls="' +
-                collapse + '">' + name + '</a></h6></div>';
+                collapse + '"';
+            list += 'data-mesuremax="' + aliments[offset].mesureMax +
+                    '" data-mesurepas="' + aliments[offset].mesurePas +
+                    '" data-qtecalorie="' + aliments[offset].qteCalorie +
+                    '" data-qteglucide="' + aliments[offset].qteGlucide +
+                    '" data-qtelipide="' + aliments[offset].qteLipide +
+                    '"data-qteproteine="' + aliments[offset].qteProteine + '"';
+            list += '>' + name + '</a></h6></div>';
 
             list += '<div id="' + collapse +
                     '" class="collapse" role="tabpanel" aria-labelledby="' +
@@ -79,11 +82,19 @@ function create_list_element(aliments) {
     list += '</div></div>';
 
     $(list).appendTo('#list-aliment-container');
+    $('list-aliment').scrollspy({
+        target : '#list-aliment-content'
+    });  // FONCTIONNE PAS !!!
+    $('.collapse').on('show.bs.collapse', adjustAliment);
 };
 
 function adjustAliment(e) {
+    console.log(e);
     $('.collapse').collapse('hide');
     var el = e.target;
+    var parent = $(el.dataset.parent);
+    // console.log(parent);
+    el = parent.first().children().children().children().children();
 
     var html =
         '<div class="card-body"><div class="row"><h6>DETAIL</h6><ul class="list-inline"><li class="list-inline-item">P</li><li class="list-inline-item">P</li></ul></nav></div><div class="row"><form class="form-inline"><div class="col-7">';
@@ -92,13 +103,22 @@ function adjustAliment(e) {
     html +=
         '</div><div class="col-5 input-group"><input type="number" class="form-control" id="inputPassword2" placeholder="10"><span class="input-group-addon">g</span></div>';
     html +=
-        '<ul class="list-inline"><li class="list-inline-item"><span id="aliment_glucide">9</span> Glucides</li><li class="list-inline-item"><span id="aliment_lipide">5</span> Lipides</li><li class="list-inline-item"><span id="aliment_proteine">9</span> Proteines</li><li class="list-inline-item"><span id="aliment_kcal">120</span> Kcal</li></ul></form></div></div>';
+        '<ul class="list-inline"><li class="list-inline-item"><span id="aliment_glucide">' +
+        el.attr('data-qteglucide') +
+        '</span> Glucides</li><li class="list-inline-item"><span id="aliment_lipide">' +
+        el.attr('data-qtelipide') +
+        '</span> Lipides</li><li class="list-inline-item"><span id="aliment_proteine">' +
+        el.attr('data-qteproteine') +
+        '</span> Proteines</li><li class="list-inline-item"><span id="aliment_kcal">' +
+        el.attr('data-qtecalorie') +
+        '</span> Kcal</li></ul></form></div></div>';
 
-    el.innerHTML = html;
+    e.target.innerHTML = html;
     $('.mySlider').slider({
         formatter : function(value) { return 'Current value: ' + value; },
         width : '50%'
     });
+
     /*
     "libelle": "Pomme", "detail": "Une pomme du coup", "mesureMax": 0.0,
         "mesurePas": 0.0, "typeMesurePas": 0.0, "quantitePortionRef": 0.0,
