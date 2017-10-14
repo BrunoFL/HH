@@ -6,15 +6,12 @@ function pageMange() {
 
     $(search).appendTo('body');
 
+    create_list_header();
     var navBot =
-        '<div id="navbot" class="fixed-bottom btn-group" role="group"><div class="mx-auto btn-decale"><button type="button" class="btn btn-dark btn-lg">Secs</button><button type="button" class="btn btn-dark btn-lg">Favoris</button><button type="button" class="btn btn-dark btn-lg">Panier</button><button type="button" class="btn btn-dark btn-lg">Ajout</button></div></div>';
-    $('body').append(navBot);
+        '<div id="navbot" class="fixed-bottom btn-group" role="group"><div class="mx-auto btn-decale"><button type="button" class="btn btn-dark btn-lg"><img src="assets/categories.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/favori.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/panier.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></div></div>';
+
+    // $('body').append(navBot);
     $('#nav_dock').on('click touch', pageMain);
-
-    var list = create_list_header();
-    list += create_list_element();
-
-    $('body').append(list);
     $('#list-aliment-container').height(window.innerHeight - 150);
     $('list-aliment').scrollspy({
         target : '#list-aliment-content'
@@ -31,42 +28,58 @@ function create_list_header() {
             '<a class="list-group-item list-group-item-action" href="#list-item-' +
             i + '">' + lettre + '</a>';
     }
-    list += '</div>';
-    return list;
-    }
+    $('body').append(list);
+    call_aliments();
+};
 
-function create_list_element() {
+function call_aliments() {
+    $.ajax({
+        url : server + "aliment/",
+        success : function(text) { create_list_element(text); }
+    });
+};
+
+function create_list_element(aliments) {
+    console.log(aliments);
     var list =
         '<div id="list-aliment-content" data-spy="scroll" data-target="#list-aliment" data-offset="0" class="scrollBar scrollspy-aliment col-10">';
 
+    var offset = 0;
     for (var i = 0; i < 26; i++) {
         // Création titre
         var lettre = String.fromCharCode('A'.charCodeAt(0) + i);
         list += '<h4 id="list-item-' + i + '">' + lettre + '</h4><hr>';
 
         // Création accordéon
-        for (var j = 0; j < 5; j++) {
-            var name = lettre + j;
-            var accordion = 'accordion' + name;
-            var heading = 'heading' + name;
-            var collapse = 'collapse' + name;
+        while (offset < aliments.length &&
+               aliments[offset].libelle[0] == lettre) {
+            var name = aliments[offset].libelle;
+            var accordion =
+                'accordion' + name.replace(/ /g, "_").replace(/,/g, "_");
+            var heading =
+                'heading' + name.replace(/ /g, "_").replace(/,/g, "_");
+            var collapse =
+                'collapse' + name.replace(/ /g, "_").replace(/,/g, "_");
             list +=
                 '<div id="' + accordion +
                 '" role="tablist"><div class="card"><div class="card-header" role="tab" id="' +
                 heading +
-                '"><h5><a class="collapsed" data-toggle="collapse" href="#' +
+                '"><h6><a class="collapsed" data-toggle="collapse" href="#' +
                 collapse + '" aria-expanded="false" aria-controls="' +
-                collapse + '">' + name + '</a></h5></div>';
+                collapse + '">' + name + '</a></h6></div>';
 
             list += '<div id="' + collapse +
                     '" class="collapse" role="tabpanel" aria-labelledby="' +
                     heading + '" data-parent="#' + accordion +
-                    '"><div class="card-body">' + Math.random() +
-                    '</div></div></div></div>';
+                    '"><div class="card-body"></div></div></div></div>';
+
+            offset++;
         }
-        }
-    return list + '</div>';
     }
+    list += '</div></div>';
+
+    $(list).appendTo('#list-aliment-container');
+};
 
 function adjustAliment(e) {
     $('.collapse').collapse('hide');
@@ -75,14 +88,14 @@ function adjustAliment(e) {
     var html =
         '<div class="card-body"><div class="row"><h6>DETAIL</h6><ul class="list-inline"><li class="list-inline-item">P</li><li class="list-inline-item">P</li></ul></nav></div><div class="row"><form class="form-inline"><div class="col-7">';
     html +=
-        '<input id="ex1" type="text" readonly class="form-control-plaintext" class="col-8">';
+        '<input id="ex1" type="text" readonly class="form-control-plaintext mySlider" class="col-8">';
     html +=
         '</div><div class="col-5 input-group"><input type="number" class="form-control" id="inputPassword2" placeholder="10"><span class="input-group-addon">g</span></div>';
     html +=
         '<ul class="list-inline"><li class="list-inline-item"><span id="aliment_glucide">9</span> Glucides</li><li class="list-inline-item"><span id="aliment_lipide">5</span> Lipides</li><li class="list-inline-item"><span id="aliment_proteine">9</span> Proteines</li><li class="list-inline-item"><span id="aliment_kcal">120</span> Kcal</li></ul></form></div></div>';
 
     el.innerHTML = html;
-    $('#ex1').slider({
+    $('.mySlider').slider({
         formatter : function(value) { return 'Current value: ' + value; },
         width : '50%'
     });
