@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
         crossorigin="anonymous">
     <link rel="stylesheet" href="../css/hh.css">
+    <link rel="stylesheet" href="../css/slider.css">
 </head>
 
 <style>
@@ -27,12 +28,36 @@
             </div>
             <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                    non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                    tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
-                    anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                    excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-                    you probably haven't heard of them accusamus labore sustainable VHS.
+                    <div class="row">
+                        <h6>DETAIL</h6>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                P
+                            </li>
+                            <li class="list-inline-item">
+                                P
+                            </li>
+                        </ul>
+                        </nav>
+                    </div>
+
+                    <div class="row">
+                        <form class="form-inline">
+                            <div class="col-8">
+                                <input id="ex1" type="text" readonly class="form-control-plaintext" class="col-8">
+                            </div>
+                            <div class="col-4 input-group">
+                                <input type="number" class="form-control" id="inputPassword2" placeholder="10">
+                                <span class="input-group-addon">g</span>
+                            </div>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">9 Glucides</li>
+                                <li class="list-inline-item">5 Lipides</li>
+                                <li class="list-inline-item">9 Proteines</li>
+                                <li class="list-inline-item">120 Kcal</li>
+                            </ul>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,10 +70,14 @@
     <script src="../js/popper.js"></script>
     <script src="../js/bs.js"></script>
 
+    <script src="../js/slider.js"></script>
+    <script>$('#ex1').slider({
+            formatter: function (value) {
+                return 'Current value: ' + value;
+            }
+        });</script>
     <!-- <script src="../js/hh.js "></script>
     <script src="../js/pageMange.js "></script> -->
-
-    <script>$('.collapse').collapse();</script>
 </body>
 
 </html>
