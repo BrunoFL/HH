@@ -16,7 +16,10 @@ function pageMange() {
 
     $('body').append(list);
     $('#list-aliment-container').height(window.innerHeight - 150);
-    $('list-aliment').scrollspy({target : '#list-aliment-content'});
+    $('list-aliment').scrollspy({
+        target : '#list-aliment-content'
+    });  // FONCTIONNE PAS !!!
+    // $('.collapse').collapse();
 };
 
 function create_list_header() {
@@ -37,12 +40,30 @@ function create_list_element() {
         '<div id="list-aliment-content" data-spy="scroll" data-target="#list-aliment" data-offset="0" class="scrollBar scrollspy-aliment col-10">';
 
     for (var i = 0; i < 26; i++) {
+        // Création titre
         var lettre = String.fromCharCode('A'.charCodeAt(0) + i);
         list += '<h4 id="list-item-' + i + '">' + lettre + '</h4><hr>';
-        for (var j = 0; j < 5; j++) {
-            list += "<div><p>plok</p></div>";
-        }
-        }
 
+        // Création accordéon
+        for (var j = 0; j < 5; j++) {
+            var name = lettre + j;
+            var accordion = 'accordion' + name;
+            var heading = 'heading' + name;
+            var collapse = 'collapse' + name;
+            list +=
+                '<div id="' + accordion +
+                '" role="tablist"><div class="card"><div class="card-header" role="tab" id="' +
+                heading +
+                '"><h5><a class="collapsed" data-toggle="collapse" href="#' +
+                collapse + '" aria-expanded="false" aria-controls="' +
+                collapse + '">' + name + '</a></h5></div>';
+
+            list +=
+                '<div id="' + collapse +
+                '" class="collapse" role="tabpanel" aria-labelledby="' +
+                heading + '" data-parent="#' + accordion +
+                '"><div class="card-body">kjrgkjlerkjlgnkn</div></div></div></div>';
+        }
+        }
     return list + '</div>';
 }
