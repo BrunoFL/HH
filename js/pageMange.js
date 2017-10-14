@@ -8,7 +8,7 @@ function pageMange() {
 
     create_list_header();
     var navBot =
-        '<div id="navbot" class="fixed-bottom btn-group" role="group"><div class="mx-auto btn-decale"><button type="button" class="btn btn-dark btn-lg"><img src="assets/categories.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/favori.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/panier.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></div></div>';
+        '<div id="navbot" class="fixed-bottom btn-group" role="group"><div class="mx-auto btn-decale"><button type="button" class="btn btn-dark btn-lg"><img src="assets/categories.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/favori.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/panier.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/creer.svg"></button></div></div>';
 
     $('body').append(navBot);
     $('#nav_dock').on('click touch', pageMain);
@@ -103,7 +103,7 @@ function adjustAliment(e) {
     var html =
         '<div class="card-body"><div class="row"><h6>' +
         el.attr('data-detail') +
-        '</h6><ul class="list-inline"><li class="list-inline-item">P</li><li class="list-inline-item">P</li></ul></nav></div><div class="row"><form class="form-inline"><div class="col-7">';
+        '</h6><ul class="list-inline"><li class="list-inline-item"><img src="assets/ajouterPanier.svg" alt="ajout panier"></li><li class="list-inline-item"><img class="param" src="assets/parametres.svg" alt="parametres"></li></ul></nav></div><div class="row"><form class="form-inline"><div class="col-7">';
     html +=
         '<input id="' + el.attr('data-name') +
         'slider" type="text" readonly class="form-control-plaintext mySlider" class="col-8">';

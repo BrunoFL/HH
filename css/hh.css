@@ -47,3 +47,10 @@
 .slider{
     width: 100% !important;
 }
+.card-body img{
+    width: 20%;
+}
+
+.param{
+    width: 40px !important;
+}
