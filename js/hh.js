@@ -10,7 +10,7 @@ var server = 'http://10.101.0.57:8000/api/';
 var violet = '#9914e8';
 var orange = '#ffae00';
 var vert = '#00ff0c';
-var rose = '#ea0aff';
+var bleu = '#54aece';
 
 $(document).ready(function() { pageMain(); });
 
@@ -30,7 +30,7 @@ function addQuadCards() {
         '"><img class="card-img-top" src="assets/recette.svg" alt="Card image recette"><div class="card-body"><h3 class="card-title  text-center">Recettes</h3></div></div></div>';
     var cardMemo =
         '<div class="box"><div class="card border-secondary" style="color: white; background-color:' +
-        rose +
+        bleu +
         '"><img class="card-img-top" src="assets/memo.svg" alt="Card image cap"><div class="card-body"><h3 class="card-title text-center">Mémo</h3></div></div></div>';
 
     $('body').append('<div id="quadCards" class="cols mx-auto">' + cardMange +
