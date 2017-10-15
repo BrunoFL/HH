@@ -1,33 +1,50 @@
+/*
+Ce fichier gere la partie de l'application "je mange"
+
+Fait par Bruno Follet-Locatelli le 13-14-15 octobre
+avec beaucoup de coca et pas beaucoup de sommeil.
+*/
+
+// Fonction principale
 function pageMange() {
-    $('#nav_dock').html('Je mange');
-    removeQuadCards();
+    $('#nav_dock').html('Je mange');  // Change le nav
+    removeQuadCards();                // Enleve les cartes
     var search =
         '<div id="search_bar" class="row fixed-top"><div class="input-group container"><input type="text" class="form-control" placeholder="Aliment" aria-label="Aliment"><span class="input-group-btn"><button class="btn btn-outline-success" type="button">Go!</button></span></div></div>';
 
-    $(search).appendTo('body');
+    $(search).appendTo('body');  // Affiche la barre de recherche
 
-    create_list_header();
+    create_list_header();  // Affiche le contenu, la liste des aliments
     var navBot =
         '<div id="navbot" class="fixed-bottom btn-group" role="group"><div class="mx-auto btn-decale"><button type="button" class="btn btn-dark btn-lg"><img src="assets/categories.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/favori.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/panier.svg" alt="categories"></button><button type="button" class="btn btn-dark btn-lg"><img src="assets/creer.svg"></button></div></div>';
 
-    $('body').append(navBot);
-    $('#nav_dock').on('click touch', pageMain);
-    $('#list-aliment-container').height(window.innerHeight - 150);
+    $('body').append(navBot);  // Affiche les boutons du bas
+    $('#nav_dock')
+        .on('click touch',
+            pageMain);  // Itinialise l'evenement pour revenir au menu principal
+    $('#list-aliment-container')
+        .height(window.innerHeight -
+                150);  // Défini la taille précise du contenu
 };
 
+// Fonction qui affiche la liste des aliments
 function create_list_header() {
+    // Affiche le menu/la liste de l'alphabet
     var list =
-        '<div id="list-aliment-container" class="row container-fluid"><div id="list-aliment" class="scrollBar list-group col-2">';
+        '<div id="list-aliment-container" class="row container-fluid"><nav id="list-aliment" class="scrollBar list-group col-2">';
     for (var i = 0; i < 26; i++) {
         var lettre = String.fromCharCode('A'.charCodeAt(0) + i);
         list +=
             '<a class="list-group-item list-group-item-action" href="#list-item-' +
             i + '">' + lettre + '</a>';
     }
-    $('body').append(list);
-    call_aliments();
+    list += '</nav></div>';
+    $('body').append(list);  // Ajoute le menu
+
+    call_aliments();  // Affiche les aliments
 };
 
+// Fait la requete AJAX pour recuperer les informations
 function call_aliments() {
     $.ajax({
         url : server + "aliment/",
@@ -35,6 +52,7 @@ function call_aliments() {
     });
 };
 
+// Crée et affiche la liste des aliments
 function create_list_element(aliments) {
     console.log(aliments);
     var list =
@@ -85,13 +103,17 @@ function create_list_element(aliments) {
     }
     list += '</div></div>';
 
-    $(list).appendTo('#list-aliment-container');
-    $('list-aliment').scrollspy({
-        target : '#list-aliment-content'
-    });  // FONCTIONNE PAS !!!
-    $('.collapse').on('show.bs.collapse', adjustAliment);
+    $(list).appendTo('#list-aliment-container');  // Ajoute la liste des
+                                                  // aliments
+    $('#list-aliment-content').scrollspy({
+        target : '#list-aliment'
+    });  // Initialise le scrollspy
+    $('.collapse')
+        .on('show.bs.collapse',
+            adjustAliment);  // Recupere l'evenement d'ouverture
 };
 
+// Fonction qui gere l'affichage des accordéons et des elements à l'interieur
 function adjustAliment(e) {
     console.log(e);
     $('.collapse').collapse('hide');
@@ -110,7 +132,7 @@ function adjustAliment(e) {
     html +=
         '</div><div class="col-5 input-group"><input type="number" class="form-control" id="input' +
         el.attr('data-name') +
-        '" placeholder="10"><span class="input-group-addon">g</span></div>';
+        '" placeholder="10"><span class="input-group-addon"> g</span></div>';
     html +=
         '<ul class="list-inline"><li class="list-inline-item"><span id="aliment_glucide">' +
         el.attr('data-qteglucide') +
@@ -124,8 +146,11 @@ function adjustAliment(e) {
 
     e.target.innerHTML = html;
     $('#' + el.attr('data-name') + 'slider')
-        .slider(
-            {formatter : function(value) { return 'Current value: ' + value; }})
+        .slider({
+            ticks : [ 0, 10, 20, 30 ],
+            ticks_labels : [ '0', '100g', '200g', '300g' ],
+            ticks_snap_bounds : 2
+        })
         .on('change', slider_adjust);
     $('#input' + el.attr('data-name')).on('keyup', input_adjust);
 
@@ -136,6 +161,7 @@ function adjustAliment(e) {
         "qteLipide": 0.0, "qteCalorie": 0.0*/
     }
 
+// Fonction appellée quand on modifie le slider, ajuste les valeurs nutritives
 function slider_adjust(e) {
     var value = e.value.newValue;
     var plok = e.currentTarget.id.replace(/slider/g, '');
@@ -148,8 +174,10 @@ function slider_adjust(e) {
     el.find('#aliment_lipide').html(lip * value);
     el.find('#aliment_kcal').html(cal * value);
     el.find('#aliment_proteine').html(prot * value);
-    }
+};
 
+// Fonction appellée quand on insere directement une valeur, ajuste les valeurs
+// nutritives
 function input_adjust(e) {
     var plok = e.target.id;
     console.log(plok);

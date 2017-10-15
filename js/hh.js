@@ -1,3 +1,10 @@
+/*
+Le fichier principal de l'application
+
+Fait par Bruno Follet-Locatelli le 13-14-15 octobre
+avec beaucoup de coca et pas beaucoup de sommeil.
+*/
+
 var server = 'http://10.101.0.57:8000/api/';
 
 var violet = '#9914e8';
@@ -7,6 +14,7 @@ var rose = '#ea0aff';
 
 $(document).ready(function() { pageMain(); });
 
+// Ajoute les 4 cartes
 function addQuadCards() {
     var cardMange =
         '<div class="box" id="card_mange"><div class="card border-secondary" style="color: white; background-color:' +
@@ -30,6 +38,7 @@ function addQuadCards() {
     $('#card_mange').on('click touch', pageMange);
 };
 
+// Supprime les 4 cartes
 function removeQuadCards() { $('#quadCards').remove(); };
 
 function addNavbarMain() {
@@ -39,6 +48,7 @@ function addNavbarMain() {
     $('body').append(nav);
 };
 
+// Fonction qui gere la page principale
 function pageMain() {
     $('body').empty();
     addNavbarMain();
